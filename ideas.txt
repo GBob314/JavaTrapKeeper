@@ -1,0 +1,3 @@
+Create a data type that holds the name of the shooter, the hits/misses, and the total score.
+
+ EX: shooter.toString() would return shooter.Name + " " + shooter.hits/misses + " " shooter.total
