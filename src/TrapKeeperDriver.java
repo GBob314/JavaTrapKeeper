@@ -1,15 +1,16 @@
 import java.util.ArrayList;
-import java.util.Hashtable;
 import java.util.Scanner;
 
 /**
  * Created by Robert on 9/22/2015.
+ *
+ * Copyright Robert Gonser 2015
  */
 public class TrapKeeperDriver {
 
     public static void main(String args[]){
 
-        ArrayList<Shooter> shooterList = new ArrayList<Shooter>();
+        ArrayList<Shooter> shooterList = new ArrayList<>();
 
         Scanner scanner = new Scanner(System.in);
 
@@ -24,13 +25,27 @@ public class TrapKeeperDriver {
 
         int count = 0;
         while(count < (25*shooterAmount)){
-            Shooter currentShooter = shooterList.get(count%shooterAmount);
+            Shooter currentShooter = shooterList.get(count % shooterAmount);
             System.out.println("Hit (h) or Miss (m): ");
             if(scanner.next().toLowerCase().equals("h")){
                 currentShooter.appendShot('X');
+                currentShooter.getTempShooterShots().push('X');
             }
-            else{
+            else {
                 currentShooter.appendShot('O');
+                currentShooter.getTempShooterShots().push('O');
+            }
+            if(currentShooter.getTempShooterShots().size() == 5){
+                int counter = 0;
+                char tempChar;
+                while(!currentShooter.getTempShooterShots().isEmpty()){
+                    tempChar = currentShooter.getTempShooterShots().pop();
+                    if(tempChar == 'X'){
+                        counter++;
+                    }
+                }
+                String tempString = "" + counter;
+                currentShooter.appendShot(tempString.charAt(0));
             }
             currentShooter.countScoreTotal(currentShooter.getShooterShots());
             System.out.println(shooterListToString(shooterList));
@@ -42,10 +57,7 @@ public class TrapKeeperDriver {
 
     public static String shooterListToString(ArrayList<Shooter> shooterList){
         String list = "";
-        Object[] shootArray = shooterList.toArray();
-        for (int i = 0; i < shootArray.length; i++) {
-            list += shootArray[i].toString() + "\n";
-        }
+        for(Shooter shooter : shooterList) list += shooter.toString() + "\n";
         return list;
     }
 

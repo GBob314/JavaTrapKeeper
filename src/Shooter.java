@@ -1,12 +1,17 @@
 import java.util.ArrayList;
+import java.util.Stack;
 
 /**
  * Created by Robert on 9/22/2015.
+ *
+ * Copyright Robert Gonser 2015
  */
 public class Shooter {
 
     private String shooterName;
-    private ArrayList<Character> shooterShots = new ArrayList<Character>();
+    private ArrayList<Character> shooterShots = new ArrayList<>();
+
+    private Stack<Character> tempShooterShots = new Stack<>();
     private int shooterScore;
 
     public Shooter(String shooterName) {
@@ -14,17 +19,14 @@ public class Shooter {
     }
 
     public void appendShot(char shot) {
-        if(shot == 'X' || shot == 'O') {
+        //if(shot == 'X' || shot == 'O') {
             this.shooterShots.add(shot);
-        }
+        //}
     }
 
     public void countScoreTotal(ArrayList<Character> shooterScore) {
         int count = 0;
-        Object[] shootArray = shooterScore.toArray();
-        for (int i = 0; i < shootArray.length; i++) {
-            if (shootArray[i] == 'X') count++;
-        }
+        for(Character tempChar : shooterScore) if(tempChar == 'X') count++;
         setShooterScore(count);
     }
 
@@ -32,16 +34,8 @@ public class Shooter {
         return shooterName;
     }
 
-    public void setShooterName(String shooterName) {
-        this.shooterName = shooterName;
-    }
-
     public ArrayList<Character> getShooterShots() {
         return shooterShots;
-    }
-
-    public void setShooterShots(ArrayList<Character> shooterShots) {
-        this.shooterShots = shooterShots;
     }
 
     public int getShooterScore() {
@@ -50,6 +44,10 @@ public class Shooter {
 
     public void setShooterScore(int shooterScore) {
         this.shooterScore = shooterScore;
+    }
+
+    public Stack<Character> getTempShooterShots() {
+        return tempShooterShots;
     }
 
     public String toString() {
