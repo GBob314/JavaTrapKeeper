@@ -4,6 +4,14 @@ import java.util.Scanner;
 /**
  * Created by Robert on 9/22/2015.
  *
+ *  Trap shooting involves a team consisting of 1-5 shooters.
+ *  Each of these shooters will shoot 25 targets for a round.
+ *  Each round has 5 positions where the shooter will shoot 5 targets
+ *  and then switch positions after 5 shots.
+ *
+ *  Generally after the 5 shots, the score keeper will call out the number
+ *  of targets hit while the shooters are changing positions.
+ *
  * Copyright Robert Gonser 2015
  */
 public class TrapKeeperDriver {
@@ -23,6 +31,8 @@ public class TrapKeeperDriver {
             shooterList.add(new Shooter(shooterName));
         }
 
+        //This loop will run for the amount of targets that need to be hit
+        //The amount this loop will run is the (amount of shooters) * 25
         int count = 0;
         while(count < (25*shooterAmount)){
             Shooter currentShooter = shooterList.get(count % shooterAmount);
@@ -35,8 +45,12 @@ public class TrapKeeperDriver {
                 currentShooter.appendShot('O');
                 currentShooter.getTempShooterShots().push('O');
             }
+
+            //Checks to see if the shooter has 5 shots
+            //If so, counts the amount of hits ('x') and places the count in to the
+            //shooter's list of shots.
             if(currentShooter.getTempShooterShots().size() == 5){
-                int counter = 0;
+                Integer counter = 0;
                 char tempChar;
                 while(!currentShooter.getTempShooterShots().isEmpty()){
                     tempChar = currentShooter.getTempShooterShots().pop();
@@ -44,9 +58,9 @@ public class TrapKeeperDriver {
                         counter++;
                     }
                 }
-                String tempString = "" + counter;
-                currentShooter.appendShot(tempString.charAt(0));
+                currentShooter.appendShot(counter.toString().charAt(0));
             }
+
             currentShooter.countScoreTotal(currentShooter.getShooterShots());
             System.out.println(shooterListToString(shooterList));
             count++;

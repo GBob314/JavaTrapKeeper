@@ -19,9 +19,7 @@ public class Shooter {
     }
 
     public void appendShot(char shot) {
-        //if(shot == 'X' || shot == 'O') {
-            this.shooterShots.add(shot);
-        //}
+        this.shooterShots.add(shot);
     }
 
     public void countScoreTotal(ArrayList<Character> shooterScore) {
